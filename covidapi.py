@@ -1,7 +1,10 @@
 import requests
 import json
 from bs4 import BeautifulSoup
+import flask from Flask
+app = Flask(__name__)
 
+@app.route("/covid/")
 def covkr():
     html = requests.get('https://coronaboard.kr')
     html = html.content.decode('utf8')
@@ -18,4 +21,7 @@ def covkr():
         "cured_today": dictionary["released"][-1]
     }
     return result
-print(covkr())
+
+if __name__ == "__main__":
+    app.run()
+    
